@@ -9,19 +9,19 @@ import android.database.sqlite.SQLiteOpenHelper
 class TheQuoteSQLiteOpenHelper(context:Context) :SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
 
-        private const val DATABASE_NAME = "QuoteDatabase"
-        private const val TABLE_CATE_NAME = "QuotesCategory"
-        private const val KEY_CATE_NAME = "category"
-        private const val KEY_CATE_ID = "_id"
-        private const val KEY_CATE_IMAGE = "image_resource_id"
-        private const val DATABASE_VERSION = 1
+        const val DATABASE_NAME = "QuoteDatabase"
+        const val TABLE_CATE_NAME = "QuotesCategory"
+        const val KEY_CATE_NAME = "category"
+        const val KEY_CATE_ID = "_id"
+        const val KEY_CATE_IMAGE = "image_resource_id"
+        const val DATABASE_VERSION = 1
 
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
 
         val createTable = "CREATE TABLE $TABLE_CATE_NAME" +
-                "$KEY_CATE_ID INTEGER PRIMARY KEY, $KEY_CATE_IMAGE TEXT, $KEY_CATE_NAME TEXT"
+                "($KEY_CATE_ID INTEGER PRIMARY KEY, $KEY_CATE_IMAGE TEXT, $KEY_CATE_NAME TEXT)"
         db?.execSQL(createTable)
 
         insertCategoryTable( db, 1, R.drawable.love, "Love")
