@@ -1,5 +1,6 @@
 package tomoaki.com.thequote
 
+import android.content.Intent
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    companion object {
+
+        const val INTENT_KEY = "QUOTE_CATEGORY_ID"
+    }
 
     var db : SQLiteDatabase? = null
     var cursor : Cursor? = null
@@ -36,7 +41,12 @@ class MainActivity : AppCompatActivity() {
             listOfCategories.add(category)
         }
 
-        categoryAdapter = CategoryAdapter(this,listOfCategories)
+        categoryAdapter = CategoryAdapter(this,listOfCategories) {categoryId ->
+            val intent = Intent(this, QuoteDetailActivity::class.java)
+            intent.putExtra(INTENT_KEY, categoryId)
+            startActivity(intent)
+
+        }
 
         recyclerViewQuoteCategories.adapter = categoryAdapter
         recyclerViewQuoteCategories.layoutManager = LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false)
